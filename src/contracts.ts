@@ -2,6 +2,9 @@
 export type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
 export type JsonObject = { [key: string]: JsonValue };
 export interface ToolArguments {
+  recover_process_operation: { "workspace": string; "run_id": string; "call_id": string; "expected_revision": number; "idempotency_key": string };
+  execute_process_operation: { "workspace": string; "run_id": string; "command": { "operation_ref": { "id": string; "revision": number }; "capability_id": string; "fingerprint": string; "arguments": Record<string, JsonValue>; "tool_call_id": string; "stage_id"?: string | null }; "expected_revision": number; "idempotency_key": string };
+  read_process_operations: { "workspace": string; "context_offset"?: number; "expected_fingerprint"?: string | null; "run_id": string };
   answer_computation_questions: { "workspace": string; "run_id": string; "expected_revision": number; "idempotency_key": string; "answers": Record<string, string> };
   append_model_import: { "workspace": string; "upload_id": string; "chunk_index": number; "chunk": string };
   apply_model_setup: { "workspace": string; "recommendation_id": string; "expected_revision": number; "expected_model_revision": number; "idempotency_key": string };

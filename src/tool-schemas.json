@@ -526,6 +526,124 @@
     "title": "ProcessRunAction",
     "type": "object"
   },
+  "execute_process_operation": {
+    "$defs": {
+      "OperationCommand": {
+        "additionalProperties": false,
+        "properties": {
+          "operation_ref": {
+            "$ref": "#/$defs/OperationReference"
+          },
+          "capability_id": {
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Capability Id",
+            "type": "string"
+          },
+          "fingerprint": {
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Fingerprint",
+            "type": "string"
+          },
+          "arguments": {
+            "additionalProperties": true,
+            "title": "Arguments",
+            "type": "object"
+          },
+          "tool_call_id": {
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Tool Call Id",
+            "type": "string"
+          },
+          "stage_id": {
+            "anyOf": [
+              {
+                "maxLength": 160,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Stage Id"
+          }
+        },
+        "required": [
+          "operation_ref",
+          "capability_id",
+          "fingerprint",
+          "arguments",
+          "tool_call_id"
+        ],
+        "title": "OperationCommand",
+        "type": "object"
+      },
+      "OperationReference": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "title": "Id",
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 1,
+            "title": "Revision",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "revision"
+        ],
+        "title": "OperationReference",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Run Id",
+        "type": "string"
+      },
+      "command": {
+        "$ref": "#/$defs/OperationCommand"
+      },
+      "expected_revision": {
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id",
+      "command",
+      "expected_revision",
+      "idempotency_key"
+    ],
+    "title": "ExternalProcessOperation",
+    "type": "object"
+  },
   "find_computation_tools": {
     "additionalProperties": false,
     "properties": {
@@ -1171,6 +1289,48 @@
     "title": "ProcessContextRead",
     "type": "object"
   },
+  "read_process_operations": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "context_offset": {
+        "default": 0,
+        "minimum": 0,
+        "title": "Context Offset",
+        "type": "integer"
+      },
+      "expected_fingerprint": {
+        "anyOf": [
+          {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Fingerprint"
+      },
+      "run_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Run Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id"
+    ],
+    "title": "ExternalProcessRead",
+    "type": "object"
+  },
   "read_process_run": {
     "additionalProperties": false,
     "properties": {
@@ -1373,6 +1533,49 @@
       "message"
     ],
     "title": "ModelSetupRecommendation",
+    "type": "object"
+  },
+  "recover_process_operation": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Run Id",
+        "type": "string"
+      },
+      "call_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Call Id",
+        "type": "string"
+      },
+      "expected_revision": {
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id",
+      "call_id",
+      "expected_revision",
+      "idempotency_key"
+    ],
+    "title": "ExternalProcessRecovery",
     "type": "object"
   },
   "resolve_request": {

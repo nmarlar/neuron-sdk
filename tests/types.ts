@@ -65,3 +65,9 @@ function importTypes(client: NeuronClient) {
  void client.call('commit_model_import',{workspace:'w',import_id:'a'.repeat(32),expected_context_revision:0,expected_model_revision:1,idempotency_key:'import-test-001'});
 }
 void importTypes;
+
+async function providerFreeProcessOperations(client: import('../src/client.js').NeuronClient) {
+ await client.call('read_process_operations', {workspace:'w',run_id:'run-1'});
+ await client.call('execute_process_operation', {workspace:'w',run_id:'run-1',expected_revision:1,idempotency_key:'operation-001',command:{operation_ref:{id:'calculate',revision:1},capability_id:'calculate',fingerprint:'f',arguments:{quantity:10},tool_call_id:'call-1'}});
+ await client.call('recover_process_operation', {workspace:'w',run_id:'run-1',call_id:'call-1',expected_revision:2,idempotency_key:'recover-001'});
+}

@@ -90,6 +90,12 @@ export class NeuronClient {
         throw new NeuronError('invalid_arguments', 'Later computation result segments require the original revision and fingerprint.', name);
       }
     }
+    if (name === 'read_process_operations') {
+      const command = args as ToolArguments['read_process_operations'];
+      if ((command.context_offset ?? 0) > 0 && command.expected_fingerprint == null) {
+        throw new NeuronError('invalid_arguments', 'Later operation contract segments require the original fingerprint.', name);
+      }
+    }
     const tool = this.tools.get(name);
     if (!tool) throw new NeuronError('unavailable_tool', 'This operation is unavailable under the current connection. Refresh tools or review consent.', name);
     if (!new Ajv({ strict: false, strictNumbers: true }).compile(tool.inputSchema)(args)) throw new NeuronError('invalid_arguments', 'The server contract differs. Update the SDK before proceeding.', name);
