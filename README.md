@@ -29,33 +29,40 @@ This example uses fictional business definitions in memory and calls no server
 or AI provider. It demonstrates how an application consumes context; it does not
 simulate production authorization or execute a business process.
 
-## Connect your Neuron workspace
+## Download and connect your Neuron workspace
 
-```sh
-NEURON_MCP_ENDPOINT=https://neuron.patternlab.ai/api/published-mcp npm run example:oauth
-```
-
-Open the printed local URL, sign in through Neuron and explicitly select the
-workspace context the application may read. Credentials stay with Neuron. Your
-account needs workspace access; installing the SDK does not provide it.
-The example requests read-only context and stores tokens only in memory.
-
-## Install in another project
-
-Download the `.tgz` and `SHA256SUMS` from a tagged GitHub release. Verify the archive
-checksum, then install that file locally:
+Download `neuron-sdk-0.1.0-beta.2.tgz` and `SHA256SUMS` from the
+[tagged release](https://github.com/nmarlar/neuron-sdk/releases/tag/v0.1.0-beta.2).
+Put both files in a new project directory, then run:
 
 ```sh
 shasum -a 256 -c SHA256SUMS
-npm install ./neuron-sdk-0.1.0-beta.1.tgz
+npm install ./neuron-sdk-0.1.0-beta.2.tgz
+NEURON_MCP_ENDPOINT=https://neuron.patternlab.ai/api/published-mcp node node_modules/@neuron/sdk/examples/oauth-web/server.mjs
 ```
 
-To build the archive from source, run `npm pack`. Do not install an unrelated
-package from npm by assuming it is this SDK.
+Open the printed URL. Sign in and select **Business context and setup** for your
+workspace and its **Operating model**. The example uses read-only consent and
+keeps tokens in memory; no token copying or API key is needed.
+Choose discovery, read the full published model, then select a process and its
+stages to inspect their requirements and rules. This does not create a run or
+execute business actions. You need an accessible published model with processes;
+installing the SDK does not provision one.
+
+[Complete walkthrough and troubleshooting](examples/oauth-web/README.md)
+
+From a source checkout after `npm ci`, use
+`NEURON_MCP_ENDPOINT=https://neuron.patternlab.ai/api/published-mcp npm run example:oauth`.
+That npm script belongs to this repository; it does not exist in a new consumer
+project. To build the archive from source, run `npm pack`. Do not install an
+unrelated package from npm by assuming it is this SDK.
 
 ## Read context
 
-Your application obtains a consented OAuth access token and stores it securely.
+The browser walkthrough above connects using its session auth provider and reads
+model/process context without manually handling tokens. The lower-level snippet
+below is for an application that already obtains a consented OAuth access token
+and stores it securely.
 Do not use a Neuron password, provider key, database URI or copied browser cookie.
 The browser OAuth example avoids copying tokens by using an auth provider.
 

@@ -20,8 +20,10 @@ try{
 
  await writeFile(join(home,'consumer.mjs'),`import {NeuronClient} from '@neuron/sdk';
 import {Sessions} from './node_modules/@neuron/sdk/examples/oauth-web/sessions.mjs';
+import {createExample} from './node_modules/@neuron/sdk/examples/oauth-web/server.mjs';
+import {readModel,readProcess,readStage} from './node_modules/@neuron/sdk/examples/oauth-web/walkthrough.mjs';
 import {inspectConnection} from './node_modules/@neuron/sdk/examples/acceptance/inspect.mjs';
-if(![NeuronClient,Sessions,inspectConnection].every(v=>typeof v==='function'))throw Error('Missing packaged exports');
+if(![NeuronClient,Sessions,inspectConnection,createExample,readModel,readProcess,readStage].every(v=>typeof v==='function'))throw Error('Missing packaged exports');
 const client=await NeuronClient.fromTransport({listTools:async()=>[],callTool:async()=>{throw Error('Unexpected call');},close:async()=>{}});
 if(client.availableTools().length!==0)throw Error('Invalid installed client');await client.close();
 `);

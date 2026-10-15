@@ -1,6 +1,6 @@
 {
   "name": "@neuron/sdk",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Typed access to Neuron business context and governed process operations over MCP",
   "type": "module",
   "engines": {

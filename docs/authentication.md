@@ -17,3 +17,9 @@ the access your application actually needs.
 A general-purpose unattended service API key is not supplied by this SDK. Never
 substitute a provider key, source URI, web cookie or Neuron password. Local
 example disconnect clears memory; server-side connection revocation is separate.
+
+For the read-only browser walkthrough, select both Business context and setup
+and Operating model in the same workspace. The first authorizes workspace
+understanding; the second authorizes published model/process reads. Leave
+unrelated capability entries unchecked. The example does not request execution.
+See [download and source instructions](../examples/oauth-web/README.md).
