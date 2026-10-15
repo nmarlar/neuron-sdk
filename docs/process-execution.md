@@ -1,6 +1,6 @@
-# Provider-free process operations (beta.3 candidate)
+# Provider-free process operations
 
-This source update adds the current server's `read_process_operations`,
+SDK v0.1.0-beta.3 adds the current server's `read_process_operations`,
 `execute_process_operation` and `recover_process_operation` request contracts.
 The published beta.2 archive does not include these three operations.
 

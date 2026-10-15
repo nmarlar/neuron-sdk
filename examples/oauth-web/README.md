@@ -6,13 +6,13 @@ the whole walkthrough. Installing the SDK does not create that workspace.
 
 ## From a GitHub release download
 
-Download `neuron-sdk-0.1.0-beta.2.tgz` and `SHA256SUMS` from the same
-[tagged release](https://github.com/nmarlar/neuron-sdk/releases/tag/v0.1.0-beta.2).
+Download `neuron-sdk-0.1.0-beta.3.tgz` and `SHA256SUMS` from the same
+[tagged release](https://github.com/nmarlar/neuron-sdk/releases/tag/v0.1.0-beta.3).
 In a new directory containing those two files:
 
 ```sh
 shasum -a 256 -c SHA256SUMS
-npm install ./neuron-sdk-0.1.0-beta.2.tgz
+npm install ./neuron-sdk-0.1.0-beta.3.tgz
 NEURON_MCP_ENDPOINT=https://neuron.patternlab.ai/api/published-mcp node node_modules/@neuron/sdk/examples/oauth-web/server.mjs
 ```
 
@@ -23,7 +23,7 @@ application's package.json.
 ## From a source checkout
 
 ```sh
-git clone --branch v0.1.0-beta.2 https://github.com/nmarlar/neuron-sdk.git
+git clone --branch v0.1.0-beta.3 https://github.com/nmarlar/neuron-sdk.git
 cd neuron-sdk
 npm ci
 NEURON_MCP_ENDPOINT=https://neuron.patternlab.ai/api/published-mcp npm run example:oauth

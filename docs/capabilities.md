@@ -26,3 +26,14 @@ working integration, and source metadata is not proof of current records.
 
 This beta is for Node.js 22+. No browser bundle or Python SDK is supplied. The
 public CI verifies the client with synthetic transports, not private server internals.
+
+## Current provider-free process execution
+
+From beta.3, typed `client.call` supports `read_process_operations`,
+`execute_process_operation` and `recover_process_operation`. These use the current
+server's published operation contracts and durable gateway without the hosted
+process planner. Read-only consent cannot start a run or execute a tool.
+See [the execution guide](process-execution.md) for the separate grant, exact
+revision/request keys, receipt handling and current limitations. Existing
+`processes.guide`/`processes.execute` helpers remain for servers that advertise
+their hosted paths; they are not a fallback for external-reasoning mode.
