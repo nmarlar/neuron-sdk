@@ -54,9 +54,9 @@ test('HTTP walkthrough enforces CSRF, rejects mutations and escapes model output
   assert.equal((await request('/discover',{csrf:'wrong'})).status,403);
   assert.equal((await request('/execute',{})).status,404);
   assert.equal((await request('/discover',{})).status,200);
-  let response=await request('/model',{workspace});assert.equal(response.status,200);const html=await response.text();assert.match(html,/Full published model read/);assert.match(html,/&lt;script&gt;/);assert.doesNotMatch(html,/<script>/);
+  let response=await request('/model',{workspace});assert.equal(response.status,200);const html=await response.text();assert.match(html,/Full published model read/);assert.match(html,/<details><summary>Complete published model JSON/);assert.match(html,/&lt;script&gt;/);assert.doesNotMatch(html,/<script>/);
   response=await request('/process',{process:'purchase'});assert.equal(response.status,200);assert.match(await response.text(),/Complete process rules/);
-  response=await request('/stage',{stage:'review'});assert.equal(response.status,200);assert.match(await response.text(),/Stage context read/);
+  response=await request('/stage',{stage:'review'});assert.equal(response.status,200);const stageHtml=await response.text();assert.match(stageHtml,/Stage context read/);assert.match(stageHtml,/<option value="review" selected>/);
   assert.equal((await request('/stage',{stage:'invented'})).status,400);
   s.release.model.processes[0].name='<script>unsafe()</script>';
   response=await request('/model',{workspace});assert.equal(response.status,200);

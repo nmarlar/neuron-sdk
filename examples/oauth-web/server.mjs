@@ -12,7 +12,7 @@ const send=(res,status,body,type='text/html')=>{res.writeHead(status,{'Content-T
 const frame=body=>`<!doctype html><meta charset="utf-8"><title>Neuron SDK read-only walkthrough</title><style>body{font:16px system-ui;max-width:960px;margin:40px auto;padding:20px;line-height:1.5}button,select{padding:10px;margin:8px 0;max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f4f4;padding:16px}details{margin:16px 0}h2{margin-top:32px}</style><h1>Neuron SDK read-only walkthrough</h1><p>Read definitions and process rules. This example does not create runs, read source records, call an AI provider or execute business actions.</p>${body}`;
 const json=value=>`<pre>${escape(JSON.stringify(value,null,2))}</pre>`;
 const form=(session,route,label,fields='')=>`<form method="post" action="${route}"><input type="hidden" name="csrf" value="${escape(session.csrf)}">${fields}<button>${label}</button></form>`;
-const select=(name,items)=>`<label>${name === 'workspace' ? 'Published model' : name === 'process' ? 'Process' : 'Stage'} <select name="${name}">${items.map(item=>`<option value="${escape(item.workspace??item.id)}">${escape(item.name)}${item.version?` · version ${escape(item.version)}`:''}</option>`).join('')}</select></label>`;
+const select=(name,items,selected)=>`<label>${name === 'workspace' ? 'Published model' : name === 'process' ? 'Process' : 'Stage'} <select name="${name}">${items.map(item=>`<option value="${escape(item.workspace??item.id)}"${(item.workspace??item.id)===selected?' selected':''}>${escape(item.name)}${item.version?` · version ${escape(item.version)}`:''}</option>`).join('')}</select></label>`;
 const server=createServer(async(req,res)=>{
  let session;
  try{
@@ -65,7 +65,7 @@ const server=createServer(async(req,res)=>{
      const release=await readModel(client,session.catalog,fields.get('workspace'));
      session.release=release;session.workspace=fields.get('workspace');delete session.process;
      const processes=release.model.processes??[];
-     send(res,200,frame(`<h2>3. Full published model read</h2><p>Version ${escape(release.version)}. The SDK assembled and validated all returned model segments before showing this result. This is the permitted published snapshot, not unpublished drafts, source credentials or live business records.</p>${processes.length?form(session,'/process','Read process flow',select('process',processes)):'<p>This published model has no adaptive processes. Ask its manager to configure and publish one before trying the process walkthrough. No setup was changed.</p>'}<details open><summary>Complete published model JSON</summary>${json(release)}</details>${back}`));
+     send(res,200,frame(`<h2>3. Full published model read</h2><p>Version ${escape(release.version)}. The SDK assembled and validated all returned model segments before showing this result. This is the permitted published snapshot, not unpublished drafts, source credentials or live business records.</p>${processes.length?form(session,'/process','Read process flow',select('process',processes)):'<p>This published model has no adaptive processes. Ask its manager to configure and publish one before trying the process walkthrough. No setup was changed.</p>'}<details><summary>Complete published model JSON</summary>${json(release)}</details>${back}`));
     }else if(path==='/process'){
      if(!session.release)throw Error('Read the model first.');
      const process=await readProcess(client,session.workspace,session.release,fields.get('process'));
@@ -75,7 +75,7 @@ const server=createServer(async(req,res)=>{
     }else{
      if(!session.process || !session.release)throw Error('Read the process first.');
      const stage=await readStage(client,session.workspace,session.release,session.process,fields.get('stage'));
-     send(res,200,frame(`<h2>5. Stage context read</h2><p>Complete focused context for stage ${escape(fields.get('stage'))}, including applicable rules returned by Neuron. Your application can now explain the required inputs, responsibilities and next choices using these definitions. No run or business action has been created.</p>${form(session,'/stage','Read another stage',select('stage',session.process.overview.stage_directory??[]))}<details open><summary>Stage requirements and applicable rules</summary>${json(stage)}</details>${back}`));
+     send(res,200,frame(`<h2>5. Stage context read</h2><p>Complete focused context for stage ${escape(fields.get('stage'))}, including applicable rules returned by Neuron. Your application can now explain the required inputs, responsibilities and next choices using these definitions. No run or business action has been created.</p>${form(session,'/stage','Read another stage',select('stage',session.process.overview.stage_directory??[],fields.get('stage')))}<details open><summary>Stage requirements and applicable rules</summary>${json(stage)}</details>${back}`));
     }
    }finally{await client.close();}return;
   }
