@@ -1,0 +1,62 @@
+{
+  "name": "@neuron/sdk",
+  "version": "0.1.0-beta.1",
+  "description": "Typed access to Neuron business context and governed process operations over MCP",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md",
+    "docs",
+    "examples/oauth-web",
+    "examples/consumer",
+    "examples/acceptance",
+    "examples/offline"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && npm run test:types && node --test tests/*.test.mjs",
+    "prepack": "npm run build",
+    "test:types": "tsc -p tests/tsconfig.json",
+    "example:oauth": "npm run build && node examples/oauth-web/server.mjs",
+    "test:package": "node scripts/test-package.mjs",
+    "example:offline": "npm run build && node examples/offline/context.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "ajv": "^8.17.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "@types/node": "^22.0.0"
+  },
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nmarlar/neuron-sdk.git"
+  },
+  "homepage": "https://github.com/nmarlar/neuron-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/nmarlar/neuron-sdk/issues"
+  },
+  "keywords": [
+    "neuron",
+    "mcp",
+    "business-context",
+    "processes",
+    "typescript",
+    "sdk",
+    "ontology"
+  ]
+}

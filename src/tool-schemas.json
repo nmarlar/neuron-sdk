@@ -1,0 +1,1865 @@
+{
+  "answer_computation_questions": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "pattern": "^[a-f0-9]{32}$",
+        "title": "Run Id",
+        "type": "string"
+      },
+      "expected_revision": {
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      },
+      "answers": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "maxProperties": 3,
+        "minProperties": 1,
+        "title": "Answers",
+        "type": "object"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id",
+      "expected_revision",
+      "idempotency_key",
+      "answers"
+    ],
+    "title": "ComputationAnswer",
+    "type": "object"
+  },
+  "append_model_import": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "upload_id": {
+        "pattern": "^[a-f0-9]{32}$",
+        "title": "Upload Id",
+        "type": "string"
+      },
+      "chunk_index": {
+        "maximum": 63,
+        "minimum": 0,
+        "title": "Chunk Index",
+        "type": "integer"
+      },
+      "chunk": {
+        "maxLength": 60000,
+        "minLength": 1,
+        "title": "Chunk",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "upload_id",
+      "chunk_index",
+      "chunk"
+    ],
+    "title": "ModelImportChunk",
+    "type": "object"
+  },
+  "apply_model_setup": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "recommendation_id": {
+        "pattern": "^[a-f0-9]{32}$",
+        "title": "Recommendation Id",
+        "type": "string"
+      },
+      "expected_revision": {
+        "description": "The expected_context_revision returned by recommend_model_setup.",
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "expected_model_revision": {
+        "minimum": 0,
+        "title": "Expected Model Revision",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "recommendation_id",
+      "expected_revision",
+      "expected_model_revision",
+      "idempotency_key"
+    ],
+    "title": "ModelSetupApplication",
+    "type": "object"
+  },
+  "begin_model_import": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "total_chunks": {
+        "maximum": 64,
+        "minimum": 1,
+        "title": "Total Chunks",
+        "type": "integer"
+      },
+      "sha256": {
+        "pattern": "^[a-f0-9]{64}$",
+        "title": "Sha256",
+        "type": "string"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "title": "Idempotency Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "total_chunks",
+      "sha256",
+      "idempotency_key"
+    ],
+    "title": "ModelImportBegin",
+    "type": "object"
+  },
+  "cancel_computation_run": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "pattern": "^[a-f0-9]{32}$",
+        "title": "Run Id",
+        "type": "string"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id",
+      "idempotency_key"
+    ],
+    "title": "ComputationCancellation",
+    "type": "object"
+  },
+  "commit_model_import": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "import_id": {
+        "pattern": "^[a-f0-9]{32}$",
+        "title": "Import Id",
+        "type": "string"
+      },
+      "expected_context_revision": {
+        "minimum": 0,
+        "title": "Expected Context Revision",
+        "type": "integer"
+      },
+      "expected_model_revision": {
+        "minimum": 0,
+        "title": "Expected Model Revision",
+        "type": "integer"
+      },
+      "expected_context_fingerprint": {
+        "pattern": "^[a-f0-9]{64}$",
+        "title": "Expected Context Fingerprint",
+        "type": "string"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "title": "Idempotency Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "import_id",
+      "expected_context_revision",
+      "expected_model_revision",
+      "expected_context_fingerprint",
+      "idempotency_key"
+    ],
+    "title": "ModelImportCommit",
+    "type": "object"
+  },
+  "describe_agent": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "agent": {
+        "maxLength": 36,
+        "minLength": 1,
+        "title": "Agent",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "agent"
+    ],
+    "title": "Agent",
+    "type": "object"
+  },
+  "describe_computation_tool": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "tool": {
+        "maxLength": 80,
+        "minLength": 1,
+        "title": "Tool",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "tool"
+    ],
+    "title": "ComputationDescription",
+    "type": "object"
+  },
+  "discover_computation_workspaces": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "anyOf": [
+          {
+            "maxLength": 40,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Workspace"
+      },
+      "offset": {
+        "default": 0,
+        "maximum": 100,
+        "minimum": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "limit": {
+        "default": 10,
+        "maximum": 20,
+        "minimum": 1,
+        "title": "Limit",
+        "type": "integer"
+      }
+    },
+    "title": "ComputationDiscovery",
+    "type": "object"
+  },
+  "discover_operating_models": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "anyOf": [
+          {
+            "maxLength": 40,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Workspace"
+      }
+    },
+    "title": "OperatingDiscovery",
+    "type": "object"
+  },
+  "discover_toolkits": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "anyOf": [
+          {
+            "maxLength": 40,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Workspace"
+      },
+      "cursor": {
+        "anyOf": [
+          {
+            "pattern": "^route_[a-f0-9]{32}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Cursor"
+      },
+      "limit": {
+        "default": 8,
+        "maximum": 10,
+        "minimum": 1,
+        "title": "Limit",
+        "type": "integer"
+      }
+    },
+    "title": "DiscoveryRequest",
+    "type": "object"
+  },
+  "discover_workspace_contexts": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "anyOf": [
+          {
+            "maxLength": 40,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Workspace"
+      },
+      "offset": {
+        "default": 0,
+        "maximum": 100,
+        "minimum": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "limit": {
+        "default": 10,
+        "maximum": 20,
+        "minimum": 1,
+        "title": "Limit",
+        "type": "integer"
+      }
+    },
+    "title": "ContextDiscovery",
+    "type": "object"
+  },
+  "execute_operating_action": {
+    "additionalProperties": false,
+    "properties": {
+      "action_id": {
+        "title": "Action Id",
+        "type": "string"
+      },
+      "case_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Case Id",
+        "type": "string"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      },
+      "confirmed": {
+        "default": false,
+        "title": "Confirmed",
+        "type": "boolean"
+      },
+      "expected_release_version": {
+        "minimum": 1,
+        "title": "Expected Release Version",
+        "type": "integer"
+      },
+      "expected_case_revision": {
+        "minimum": 0,
+        "title": "Expected Case Revision",
+        "type": "integer"
+      },
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      }
+    },
+    "required": [
+      "action_id",
+      "case_id",
+      "idempotency_key",
+      "expected_release_version",
+      "expected_case_revision",
+      "workspace"
+    ],
+    "title": "OperatingExecution",
+    "type": "object"
+  },
+  "execute_process_action": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Run Id",
+        "type": "string"
+      },
+      "action_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Action Id",
+        "type": "string"
+      },
+      "expected_revision": {
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "expected_case_revision": {
+        "minimum": 0,
+        "title": "Expected Case Revision",
+        "type": "integer"
+      },
+      "expected_release_version": {
+        "minimum": 1,
+        "title": "Expected Release Version",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      },
+      "confirmed": {
+        "default": false,
+        "title": "Confirmed",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id",
+      "action_id",
+      "expected_revision",
+      "expected_case_revision",
+      "expected_release_version",
+      "idempotency_key"
+    ],
+    "title": "ProcessRunAction",
+    "type": "object"
+  },
+  "find_computation_tools": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace"
+    ],
+    "title": "ComputationWorkspace",
+    "type": "object"
+  },
+  "get_action_status": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "action_id": {
+        "maxLength": 80,
+        "minLength": 1,
+        "title": "Action Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "action_id"
+    ],
+    "title": "ActionRequest",
+    "type": "object"
+  },
+  "get_computation_run": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "pattern": "^[a-f0-9]{32}$",
+        "title": "Run Id",
+        "type": "string"
+      },
+      "context_offset": {
+        "default": 0,
+        "minimum": 0,
+        "title": "Context Offset",
+        "type": "integer"
+      },
+      "expected_revision": {
+        "anyOf": [
+          {
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Revision"
+      },
+      "expected_fingerprint": {
+        "anyOf": [
+          {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Fingerprint"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id"
+    ],
+    "title": "ComputationRead",
+    "type": "object"
+  },
+  "get_file": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "agent": {
+        "maxLength": 36,
+        "minLength": 1,
+        "title": "Agent",
+        "type": "string"
+      },
+      "file_id": {
+        "maxLength": 80,
+        "minLength": 1,
+        "title": "File Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "agent",
+      "file_id"
+    ],
+    "title": "FileRequest",
+    "type": "object"
+  },
+  "get_operating_outcomes": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "case_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Case Id",
+        "type": "string"
+      },
+      "limit": {
+        "default": 10,
+        "maximum": 20,
+        "minimum": 1,
+        "title": "Limit",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "workspace",
+      "case_id"
+    ],
+    "title": "OperatingOutcomes",
+    "type": "object"
+  },
+  "get_outcome_guidance": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "goal_id": {
+        "anyOf": [
+          {
+            "pattern": "^[a-f0-9]{32}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Goal Id"
+      }
+    },
+    "required": [
+      "workspace"
+    ],
+    "title": "ContextGuidance",
+    "type": "object"
+  },
+  "guide_process_run": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Run Id",
+        "type": "string"
+      },
+      "message": {
+        "maxLength": 12000,
+        "minLength": 1,
+        "title": "Message",
+        "type": "string"
+      },
+      "expected_revision": {
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id",
+      "message",
+      "expected_revision",
+      "idempotency_key"
+    ],
+    "title": "ProcessRunGuide",
+    "type": "object"
+  },
+  "invoke_capability": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "agent": {
+        "maxLength": 36,
+        "minLength": 1,
+        "title": "Agent",
+        "type": "string"
+      },
+      "operation": {
+        "maxLength": 80,
+        "minLength": 1,
+        "title": "Operation",
+        "type": "string"
+      },
+      "arguments": {
+        "additionalProperties": true,
+        "title": "Arguments",
+        "type": "object"
+      },
+      "request_id": {
+        "pattern": "^[A-Za-z0-9_-]{8,80}$",
+        "title": "Request Id",
+        "type": "string"
+      },
+      "expected_revision": {
+        "anyOf": [
+          {
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Revision"
+      }
+    },
+    "required": [
+      "workspace",
+      "agent",
+      "operation",
+      "request_id"
+    ],
+    "title": "CapabilityRequest",
+    "type": "object"
+  },
+  "list_agents": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace"
+    ],
+    "title": "Workspace",
+    "type": "object"
+  },
+  "list_computation_runs": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace"
+    ],
+    "title": "ComputationWorkspace",
+    "type": "object"
+  },
+  "list_toolkits": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace"
+    ],
+    "title": "Workspace",
+    "type": "object"
+  },
+  "open_source_setup": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "goal_id": {
+        "anyOf": [
+          {
+            "pattern": "^[a-f0-9]{32}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Goal Id"
+      },
+      "source_kind": {
+        "enum": [
+          "file",
+          "document",
+          "database",
+          "api"
+        ],
+        "title": "Source Kind",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "source_kind"
+    ],
+    "title": "SourceHandoff",
+    "type": "object"
+  },
+  "prepare_model_import": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "upload_id": {
+        "pattern": "^[a-f0-9]{32}$",
+        "title": "Upload Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "upload_id"
+    ],
+    "title": "ModelImportUpload",
+    "type": "object"
+  },
+  "propose_action": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "agent": {
+        "anyOf": [
+          {
+            "maxLength": 36,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Agent"
+      },
+      "action": {
+        "maxLength": 80,
+        "minLength": 1,
+        "title": "Action",
+        "type": "string"
+      },
+      "arguments": {
+        "additionalProperties": true,
+        "title": "Arguments",
+        "type": "object"
+      },
+      "request_id": {
+        "pattern": "^[A-Za-z0-9_-]{8,80}$",
+        "title": "Request Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "action",
+      "request_id"
+    ],
+    "title": "ProposalRequest",
+    "type": "object"
+  },
+  "read_model": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "agent": {
+        "maxLength": 36,
+        "minLength": 1,
+        "title": "Agent",
+        "type": "string"
+      },
+      "concept_id": {
+        "anyOf": [
+          {
+            "maxLength": 80,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Concept Id"
+      }
+    },
+    "required": [
+      "workspace",
+      "agent"
+    ],
+    "title": "ModelRequest",
+    "type": "object"
+  },
+  "read_model_import": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "import_id": {
+        "pattern": "^[a-f0-9]{32}$",
+        "title": "Import Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "import_id"
+    ],
+    "title": "ModelImportRead",
+    "type": "object"
+  },
+  "read_operating_case": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "case_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Case Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "case_id"
+    ],
+    "title": "OperatingCase",
+    "type": "object"
+  },
+  "read_operating_model": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "context_offset": {
+        "default": 0,
+        "minimum": 0,
+        "title": "Context Offset",
+        "type": "integer"
+      },
+      "expected_release_version": {
+        "anyOf": [
+          {
+            "minimum": 1,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Release Version"
+      },
+      "expected_context_fingerprint": {
+        "anyOf": [
+          {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Context Fingerprint"
+      }
+    },
+    "required": [
+      "workspace"
+    ],
+    "title": "OperatingModelRead",
+    "type": "object"
+  },
+  "read_process_context": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "context_offset": {
+        "default": 0,
+        "minimum": 0,
+        "title": "Context Offset",
+        "type": "integer"
+      },
+      "expected_release_version": {
+        "anyOf": [
+          {
+            "minimum": 1,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Release Version"
+      },
+      "expected_context_fingerprint": {
+        "anyOf": [
+          {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Context Fingerprint"
+      },
+      "view": {
+        "default": "details",
+        "enum": [
+          "overview",
+          "focused",
+          "details"
+        ],
+        "title": "View",
+        "type": "string"
+      },
+      "process_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Process Id",
+        "type": "string"
+      },
+      "stage_id": {
+        "anyOf": [
+          {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Stage Id"
+      }
+    },
+    "required": [
+      "workspace",
+      "process_id"
+    ],
+    "title": "ProcessContextRead",
+    "type": "object"
+  },
+  "read_process_run": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Run Id",
+        "type": "string"
+      },
+      "context_offset": {
+        "default": 0,
+        "minimum": 0,
+        "title": "Context Offset",
+        "type": "integer"
+      },
+      "expected_run_revision": {
+        "anyOf": [
+          {
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Run Revision"
+      },
+      "expected_context_fingerprint": {
+        "anyOf": [
+          {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Context Fingerprint"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id"
+    ],
+    "title": "ProcessRunRead",
+    "type": "object"
+  },
+  "read_stage_data": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Run Id",
+        "type": "string"
+      },
+      "expected_revision": {
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "expected_release_version": {
+        "minimum": 1,
+        "title": "Expected Release Version",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      },
+      "stage_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Stage Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id",
+      "expected_revision",
+      "expected_release_version",
+      "idempotency_key",
+      "stage_id"
+    ],
+    "title": "ProcessStageData",
+    "type": "object"
+  },
+  "read_workspace_context": {
+    "additionalProperties": false,
+    "properties": {
+      "focus": {
+        "default": "",
+        "maxLength": 1200,
+        "title": "Focus",
+        "type": "string"
+      },
+      "item_offset": {
+        "default": 0,
+        "maximum": 10000,
+        "minimum": 0,
+        "title": "Item Offset",
+        "type": "integer"
+      },
+      "concept_offset": {
+        "default": 0,
+        "maximum": 10000,
+        "minimum": 0,
+        "title": "Concept Offset",
+        "type": "integer"
+      },
+      "relationship_offset": {
+        "default": 0,
+        "maximum": 10000,
+        "minimum": 0,
+        "title": "Relationship Offset",
+        "type": "integer"
+      },
+      "process_offset": {
+        "default": 0,
+        "maximum": 10000,
+        "minimum": 0,
+        "title": "Process Offset",
+        "type": "integer"
+      },
+      "expected_revision": {
+        "anyOf": [
+          {
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Revision"
+      },
+      "expected_fingerprint": {
+        "anyOf": [
+          {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Fingerprint"
+      },
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace"
+    ],
+    "title": "ContextRead",
+    "type": "object"
+  },
+  "recommend_model_setup": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "message": {
+        "description": "The user's business description or requested outcome. Use their actual meaning, not an assistant-generated policy or technical template ID.",
+        "maxLength": 4000,
+        "minLength": 1,
+        "title": "Message",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "message"
+    ],
+    "title": "ModelSetupRecommendation",
+    "type": "object"
+  },
+  "resolve_request": {
+    "$defs": {
+      "Agent": {
+        "additionalProperties": false,
+        "properties": {
+          "workspace": {
+            "maxLength": 40,
+            "minLength": 1,
+            "title": "Workspace",
+            "type": "string"
+          },
+          "agent": {
+            "maxLength": 36,
+            "minLength": 1,
+            "title": "Agent",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workspace",
+          "agent"
+        ],
+        "title": "Agent",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "text": {
+        "description": "Self-contained question. Expand vague follow-ups using the external conversation before calling; active is an agent pointer, not previous question history.",
+        "maxLength": 4000,
+        "minLength": 1,
+        "title": "Text",
+        "type": "string"
+      },
+      "workspace": {
+        "anyOf": [
+          {
+            "maxLength": 40,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Workspace"
+      },
+      "active": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/Agent"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      }
+    },
+    "required": [
+      "text"
+    ],
+    "title": "ResolveRequest",
+    "type": "object"
+  },
+  "run_check": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "agent": {
+        "maxLength": 36,
+        "minLength": 1,
+        "title": "Agent",
+        "type": "string"
+      },
+      "query_id": {
+        "maxLength": 80,
+        "minLength": 1,
+        "title": "Query Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "agent",
+      "query_id"
+    ],
+    "title": "CheckRequest",
+    "type": "object"
+  },
+  "run_computation_outcome": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "message": {
+        "description": "The user\u2019s actual business outcome. Neuron selects and configures supported tools. Never pass generated executable code, credentials, raw queries or source records.",
+        "maxLength": 12000,
+        "minLength": 1,
+        "title": "Message",
+        "type": "string"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "message",
+      "idempotency_key"
+    ],
+    "title": "ComputationOutcome",
+    "type": "object"
+  },
+  "save_process_inputs": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "run_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Run Id",
+        "type": "string"
+      },
+      "expected_revision": {
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "expected_release_version": {
+        "minimum": 1,
+        "title": "Expected Release Version",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      },
+      "inputs": {
+        "additionalProperties": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxProperties": 100,
+        "title": "Inputs",
+        "type": "object"
+      }
+    },
+    "required": [
+      "workspace",
+      "run_id",
+      "expected_revision",
+      "expected_release_version",
+      "idempotency_key",
+      "inputs"
+    ],
+    "title": "ProcessDataInputs",
+    "type": "object"
+  },
+  "simulate_operating_action": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "action_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Action Id",
+        "type": "string"
+      },
+      "case_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Case Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "action_id",
+      "case_id"
+    ],
+    "title": "OperatingSimulation",
+    "type": "object"
+  },
+  "start_process_run": {
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "process_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Process Id",
+        "type": "string"
+      },
+      "case_id": {
+        "maxLength": 160,
+        "minLength": 1,
+        "title": "Case Id",
+        "type": "string"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      },
+      "message": {
+        "default": "",
+        "maxLength": 12000,
+        "title": "Message",
+        "type": "string"
+      }
+    },
+    "required": [
+      "workspace",
+      "process_id",
+      "case_id",
+      "idempotency_key"
+    ],
+    "title": "ProcessStart",
+    "type": "object"
+  },
+  "update_workspace_context": {
+    "$defs": {
+      "ContextItemUpdate": {
+        "additionalProperties": false,
+        "properties": {
+          "operation": {
+            "default": "remember",
+            "enum": [
+              "remember",
+              "revise",
+              "set_status"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "fact",
+              "goal",
+              "question",
+              "assumption",
+              "opportunity"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "maxLength": 600,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Text"
+          },
+          "user_excerpt": {
+            "default": "",
+            "description": "For fact memory, copy an exact excerpt from the CURRENT human message. The host stores this quote, not a generated source-result paraphrase.",
+            "maxLength": 600,
+            "title": "User Excerpt",
+            "type": "string"
+          },
+          "item_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Item Id"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "enum": [
+                  "active",
+                  "answered",
+                  "deferred",
+                  "paused",
+                  "cancelled",
+                  "proposed",
+                  "selected",
+                  "dismissed"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Status"
+          },
+          "belief": {
+            "default": "inferred",
+            "enum": [
+              "user_stated",
+              "inferred"
+            ],
+            "title": "Belief",
+            "type": "string"
+          },
+          "concept_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8,
+            "title": "Concept Ids",
+            "type": "array"
+          },
+          "process_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8,
+            "title": "Process Ids",
+            "type": "array"
+          },
+          "goal_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Goal Id"
+          },
+          "why": {
+            "default": "",
+            "maxLength": 400,
+            "title": "Why",
+            "type": "string"
+          },
+          "next_step": {
+            "default": "",
+            "maxLength": 400,
+            "title": "Next Step",
+            "type": "string"
+          },
+          "answer": {
+            "default": "",
+            "maxLength": 600,
+            "title": "Answer",
+            "type": "string"
+          },
+          "priority": {
+            "default": "medium",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Priority",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind"
+        ],
+        "title": "ContextItemUpdate",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "workspace": {
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "Workspace",
+        "type": "string"
+      },
+      "expected_revision": {
+        "minimum": 0,
+        "title": "Expected Revision",
+        "type": "integer"
+      },
+      "idempotency_key": {
+        "maxLength": 160,
+        "minLength": 8,
+        "title": "Idempotency Key",
+        "type": "string"
+      },
+      "updates": {
+        "items": {
+          "$ref": "#/$defs/ContextItemUpdate"
+        },
+        "maxItems": 6,
+        "title": "Updates",
+        "type": "array"
+      },
+      "message": {
+        "anyOf": [
+          {
+            "maxLength": 1500,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Message"
+      },
+      "expected_model_revision": {
+        "anyOf": [
+          {
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expected Model Revision"
+      }
+    },
+    "required": [
+      "workspace",
+      "expected_revision",
+      "idempotency_key"
+    ],
+    "title": "ContextUpdate",
+    "type": "object"
+  }
+}
